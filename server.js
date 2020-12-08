@@ -8,11 +8,14 @@ let client = null;
 const initClient = async () => {
     console.log(`Database: ${process.env.DB_NAME} User: ${process.env.DB_USER} Host: ${process.env.DB_HOST} Port: ${process.env.DB_PORT}`)
     client = new Client({
+        database: process.env.DB_NAME,
         user: process.env.DB_USER,
         host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
         password: process.env.DB_PW,
-        port: process.env.DB_PORT
+        port: process.env.DB_PORT,
+        ssl: {
+            rejectUnauthorized: false // This is for simplicity in the demo; don't do this in a "real" app!
+        }
     });
     await client.connect();
 }

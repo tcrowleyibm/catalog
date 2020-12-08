@@ -24,7 +24,7 @@ For the `/charters` endpoint, it's necessary to create a table and add rows. Thi
 ways. To create the table and rows from the command line via psql, use the following:
 
 ```
-psql -p 5432 -h localhost -U postgres init.sql
+psql -p 5432 -h localhost -U postgres -d catalog -f init.sql
 ```
 
 # Running the application locally
