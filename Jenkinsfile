@@ -10,8 +10,10 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("caatalog")
+        docker.withRegistry('http://host.minikube.internal:5000') {
+            def customImage = docker.build("caatalog")
+            customImage.push()
+        }
     }
 
     stage('Test image') {
