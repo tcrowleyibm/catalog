@@ -6,17 +6,20 @@ const port = 3001
 
 let client = null;
 const initClient = async () => {
-    console.log(`Database: ${process.env.DB_NAME} User: ${process.env.DB_USER} Host: ${process.env.DB_HOST} Port: ${process.env.DB_PORT}`)
-    client = new Client({
+    let dbVars = {
         database: process.env.DB_NAME,
         user: process.env.DB_USER,
         host: process.env.DB_HOST,
         password: process.env.DB_PW,
         port: process.env.DB_PORT,
-        ssl: {
+    };
+    if (process.env.DB_USE_SSL && process.env.DB_USE_SSL === 'true') {
+        dbVars.ssl = {
             rejectUnauthorized: false // This is for simplicity in the demo; don't do this in a "real" app!
         }
-    });
+    }
+
+    client = new Client(dbVars);
     await client.connect();
 }
 

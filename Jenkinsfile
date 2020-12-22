@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         docker.withRegistry('http://host.minikube.internal:5000') {
-            customImage = docker.build("caatalog")
+            customImage = docker.build("catalog")
             customImage.push()
         }
     }
