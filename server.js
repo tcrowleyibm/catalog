@@ -2,23 +2,25 @@ const { response } = require('express');
 const express = require('express')
 const { Client } = require('pg')
 const app = express()
-const port = 3001
+const port = process.env.MY_PORT ? process.env.MY_PORT : 3999
+
+let dbVars = {
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PW,
+    port: process.env.DB_PORT,
+};
+if (process.env.DB_USE_SSL && process.env.DB_USE_SSL === 'true') {
+    dbVars.ssl = {
+        rejectUnauthorized: false // This is for simplicity in the demo; don't do this in a "real" app!
+    }
+}
+console.log("Connection details:" + JSON.stringify(dbVars))
+console.log("Running on port: " + port);
 
 let client = null;
 const initClient = async () => {
-    let dbVars = {
-        database: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        password: process.env.DB_PW,
-        port: process.env.DB_PORT,
-    };
-    if (process.env.DB_USE_SSL && process.env.DB_USE_SSL === 'true') {
-        dbVars.ssl = {
-            rejectUnauthorized: false // This is for simplicity in the demo; don't do this in a "real" app!
-        }
-    }
-
     client = new Client(dbVars);
     await client.connect();
 }

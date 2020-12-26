@@ -11,7 +11,7 @@ provides:
       - name: charters_endpoint
         value: /charters
       - name: port
-        value: 3001
+        formula: '{{with(index .Needs "environment.properties:appEnvProps")}}{{.Params.catalog_port.Value}}{{end}}'
       - name: imageName
         formula: '{{.Component.Name}}'
 uses:
@@ -27,6 +27,9 @@ uses:
         formula: '{{with(index .Needs "service.db.postgres:catalogdb")}}{{.Params.db_name.Value}}{{end}}'
       - name: DB_HOST
         formula: '{{with(index .Needs "service.db.postgres:catalogdb")}}{{.Params.db_host.Value}}{{end}}'
+      - name: MY_PORT
+        formula: '{{with(index .Needs "environment.properties:appEnvProps")}}{{.Params.catalog_port.Value}}{{end}}'
+      
 needs:
   - type: service.db.postgres
     name: catalogdb
@@ -41,4 +44,12 @@ needs:
       - name: db_name
         required: true
       - name: db_host
+        required: true
+  - type: environment.properties
+    name: appEnvProps
+    description: Application properties
+    params:
+      - name: app_message
+        required: true
+      - name: catalog_port
         required: true

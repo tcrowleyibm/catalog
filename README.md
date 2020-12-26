@@ -33,12 +33,12 @@ Be sure to create an instance of Postgres and declare the credentials as environ
 sample way to do this is:
 
 ```
-export DB_USER="postgres"
-export DB_PW="passw0rd"
+export DB_USER="abetterusername"
+export DB_PW="passwordie"
 export DB_HOST="localhost"
 export DB_NAME="postgres"
 export DB_PORT="5432"
-docker run --name postgres1 -e POSTGRES_PASSWORD=$DB_PW POSTGRES_USER=$DB_USER -p 5432:5432 -d postgres
+docker run --name postgres1 -e POSTGRES_PASSWORD=$DB_PW -e POSTGRES_USER=$DB_USER -p 5432:5432 -d postgres
 
 ```
 
