@@ -26,8 +26,11 @@ uses:
         formula: '{{with(index .Needs "service.db.postgres:chartersdb")}}{{.Params.db_name.Value}}{{end}}'
       - name: DB_HOST
         formula: '{{with(index .Needs "service.db.postgres:chartersdb")}}{{.Params.db_host.Value}}{{end}}'
+      - name: DB_USE_SSL
+        formula: '{{with(index .Needs "service.db.postgres:chartersdb")}}{{.Params.db_use_ssl.Value}}{{end}}'
       - name: MY_PORT
         formula: '{{with(index .Needs "environment.properties:appEnvProps")}}{{.Params.charters_port.Value}}{{end}}'
+
   - type: secret
     name: databasecredentials
     params:
@@ -46,6 +49,8 @@ needs:
       - name: db_name
         required: true
       - name: db_host
+        required: true
+      - name: db_use_ssl
         required: true
   - type: environment.properties
     name: appEnvProps
