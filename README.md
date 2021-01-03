@@ -1,8 +1,8 @@
-# catalog
-A basic NodeJS application to manage catalog data
+# charters
+A basic NodeJS application to manage charters data
 
 # About
-This application depends upon a back-end database. There are two endpoints (or services) associated with it:
+This application depends upon a back-end database. There are two endpoints associated with it:
 
  - `/dbtime` - makes a call the database to retrieve the time (`SELECT NOW()`). This endpoint doesn't
    require a table or any associated data
@@ -24,7 +24,7 @@ For the `/charters` endpoint, it's necessary to create a table and add rows. Thi
 ways. To create the table and rows from the command line via psql, use the following:
 
 ```
-psql -p 5432 -h localhost -U postgres -d catalog -f init.sql
+psql -p 5432 -h localhost -U postgres -d postgres -f init.sql
 ```
 
 # Running the application locally
@@ -59,13 +59,13 @@ npm start
 # Building the Docker image
 
 ```
-docker build -t catalog .
+docker build -t charters .
 ```
 
 # Run the Docker image
 
 ```
-docker run  --name catalog1 --env DB_USER=postgres --env DB_PW=passw0rd --env DB_HOST=host.docker.internal --env DB_NAME=postgres --env DB_PORT=5432 -p 3001:3001 -d catalog:latest
+docker run  --name charters1 --env DB_USER=abetterusername --env DB_PW=passwordie --env DB_HOST=host.docker.internal --env DB_NAME=postgres --env DB_PORT=5432 -p 3001:3001 -d charters:latest
 ```
 
 # Running with SSL enabled
